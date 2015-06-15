@@ -1,4 +1,4 @@
-package cn.jxufe.web.entity;
+package cn.jxufe.web.domain;
 
 import java.util.List;
 /**

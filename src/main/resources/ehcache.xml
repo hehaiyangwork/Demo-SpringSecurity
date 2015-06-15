@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="gbk"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd">
+
+	<diskStore path="java.io.tmpdir" />
+
+
+	<defaultCache maxElementsInMemory="10000" overflowToDisk="true" eternal="false"
+		memoryStoreEvictionPolicy="LRU" maxElementsOnDisk="10000000" diskExpiryThreadIntervalSeconds="600"
+		timeToIdleSeconds="3600" timeToLiveSeconds="100000" diskPersistent="false">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" /> 	
+	</defaultCache>
+	
+	<!-- replicateAsynchronously对象同步是否异步完成，默认为true。如果比较紧急就设为false。
+								在一致性时间性要求不强的时候，设为异步可大大提供性能，因为它是异步立即返回的，而且可以批量提交。
+		replicateUpdatesViaCopy 是否将对象变更复制到所有节点，还是只是发送一个失效信息，让对方该缓存失效，当对方需要该缓存时重新计算载入。
+								默认为true。鉴于对象复制的消耗挺大的，又有锁的问题，而且对方也未必需要该对象，所以此属性建议设为false。
+								如果业务上真的需要设为true时，就可考虑使用Terracotta了。
+		replicatePuts、replicateUpdates、replicateRemovals增删改是否同步，默认都为true。但因为我们前面选择了失效算法，
+					所以replicatePuts要设为false。 -->
+	
+	<!--
+
+		配置自定义缓存 maxElementsInMemory：缓存中允许创建的最大对象数
+
+		eternal：缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期。
+
+		timeToIdleSeconds：缓存数据的钝化时间，也就是在一个元素消亡之前，
+
+		两次访问时间的最大时间间隔值，这只能在元素不是永久驻留时有效， 如果该值是 0 就意味着元素可以停顿无穷长的时间。
+
+		timeToLiveSeconds：缓存数据的生存时间，也就是一个元素从构建到消亡的最大时间间隔值，
+
+		这只能在元素不是永久驻留时有效，如果该值是0就意味着元素可以停顿无穷长的时间。 overflowToDisk：内存不足时，是否启用磁盘缓存。
+
+		memoryStoreEvictionPolicy：缓存满了之后的淘汰算法。
+	-->
+
+	<cache name="authority_cache" maxElementsInMemory="200" eternal="true"
+		overflowToDisk="true" >
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" /> 	
+		</cache>
+	
+	<cache name="authority_resource_cache" maxElementsInMemory="200" eternal="true"
+		overflowToDisk="true" >
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" /> 	
+		</cache>
+	
+	<cache name="resource_cache" maxElementsInMemory="200" eternal="true"
+		overflowToDisk="true" >
+	<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" /> 	
+	</cache>
+
+
+</ehcache>

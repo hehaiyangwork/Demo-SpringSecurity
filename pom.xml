@@ -10,6 +10,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.1.2.RELEASE</spring.version>
+		<security.version>3.2.0.RELEASE</security.version>
 	</properties>
 
 	<dependencies>
@@ -20,6 +21,22 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- mybatis begin -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.3</version>
+		</dependency>
+		<!-- mybatis end -->
+
+		<!-- ehcache begin -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.6.10</version>
+		</dependency>
+		<!-- ehcache end -->
 
 		<!-- Spring begin -->
 		<dependency>
@@ -57,7 +74,65 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!-- spring end -->
+		<!-- Spring End -->
+
+		<!-- Security begin -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-acl</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-aspects</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-cas</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-ldap</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-openid</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-remoting</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${security.version}</version>
+		</dependency>
+		<!-- security End -->
 
 		<!-- web jar -->
 		<dependency>

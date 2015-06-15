@@ -39,7 +39,7 @@ default-lazy-init="true">
 	</bean>
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="webBindingInitializer">
-			<bean class="cn.jxufe.core.web.DefaultBindingInitializer"/>
+			<bean class="cn.jxufe.core.editor.DefaultBindingInitializer"/>
 		</property>
 		<!-- 注册JASON转换器 -->
 		<property name="messageConverters">  
@@ -84,7 +84,7 @@ default-lazy-init="true">
 	</bean>-->
 
 	<!-- 继承后自己写的上传类 -->
-	<bean id="multipartResolver" class="cn.jxufe.core.file.CustomMultipartResolver">   
+	<bean id="multipartResolver" class="cn.jxufe.core.upload.CustomMultipartResolver">   
 	 	<property name="maxUploadSize" value="5000000"/>
 		<property name="defaultEncoding" value="UTF-8"/>
 		<property name="uploadTempDir" value="upload/temp/"/>
