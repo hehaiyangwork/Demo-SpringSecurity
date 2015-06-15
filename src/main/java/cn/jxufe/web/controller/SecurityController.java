@@ -7,16 +7,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.jxufe.core.mybatis.TestMyBatis;
+
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/security")
+public class SecurityController {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request){
-		return "admin/index";
+		TestMyBatis t=new TestMyBatis();
+		t.testAdd();
+		return "security/index";
 	}
 	
 }
