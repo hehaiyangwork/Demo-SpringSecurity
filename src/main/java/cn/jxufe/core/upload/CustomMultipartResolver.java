@@ -1,4 +1,4 @@
-package cn.jxufe.core.file;
+package cn.jxufe.core.upload;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

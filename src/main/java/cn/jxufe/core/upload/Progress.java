@@ -1,4 +1,4 @@
-package cn.jxufe.core.file;
+package cn.jxufe.core.upload;
 
 public class Progress {
 	private long pBytesRead;

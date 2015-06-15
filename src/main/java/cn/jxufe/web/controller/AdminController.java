@@ -1,4 +1,4 @@
-package cn.jxufe.web.admin.controller;
+package cn.jxufe.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

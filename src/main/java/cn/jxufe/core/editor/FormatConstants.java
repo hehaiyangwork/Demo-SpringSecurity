@@ -1,4 +1,4 @@
-package cn.jxufe.core.web;
+package cn.jxufe.core.editor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

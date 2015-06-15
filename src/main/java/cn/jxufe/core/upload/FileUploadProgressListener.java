@@ -1,4 +1,4 @@
-package cn.jxufe.core.file;
+package cn.jxufe.core.upload;
 
 import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.ProgressListener;

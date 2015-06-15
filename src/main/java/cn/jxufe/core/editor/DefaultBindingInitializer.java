@@ -1,4 +1,4 @@
-package cn.jxufe.core.web;
+package cn.jxufe.core.editor;
 
 import java.text.DateFormat;
 import java.util.Collection;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.support.WebBindingInitializer;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
-import cn.jxufe.core.web.FormatConstants;
-import cn.jxufe.core.web.editor.StringEditor;
-import cn.jxufe.core.web.editor.DoubleEditor;
-import cn.jxufe.core.web.editor.FloatEditor;
+import cn.jxufe.core.editor.DoubleEditor;
+import cn.jxufe.core.editor.FloatEditor;
+import cn.jxufe.core.editor.FormatConstants;
+import cn.jxufe.core.editor.StringEditor;
 
 /**
  * 
