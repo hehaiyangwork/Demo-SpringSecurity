@@ -1,4 +1,4 @@
-#SeanAuthorityManagementSystem
+#GeneralAuthorityManagementSystem
 ##动手打造一个通用的权限管理系统
 ###SpringMVC 3.1.2.RELEASE
 ###Spring Security 3.2.0.RELEASE
