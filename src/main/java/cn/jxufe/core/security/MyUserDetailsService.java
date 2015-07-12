@@ -18,9 +18,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 
+
 import cn.jxufe.core.dao.BaseDao;
 import cn.jxufe.core.security.domain.UserDetail;
-import cn.jxufe.web.domain.Resource;
+import cn.jxufe.core.web.domain.Resource;
 
 @Component("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {

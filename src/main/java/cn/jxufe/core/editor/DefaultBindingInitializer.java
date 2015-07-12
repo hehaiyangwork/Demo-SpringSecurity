@@ -15,7 +15,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import cn.jxufe.core.editor.DoubleEditor;
 import cn.jxufe.core.editor.FloatEditor;
-import cn.jxufe.core.editor.FormatConstants;
+import cn.jxufe.core.editor.DateFormatEditor;
 import cn.jxufe.core.editor.StringEditor;
 
 /**
@@ -30,7 +30,7 @@ import cn.jxufe.core.editor.StringEditor;
 public class DefaultBindingInitializer implements WebBindingInitializer{
 
 	public void initBinder(WebDataBinder binder, WebRequest request) {
-		DateFormat dateFormat = FormatConstants.DATE_TIME_FORMAT;
+		DateFormat dateFormat = DateFormatEditor.DATE_TIME_FORMAT;
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 		binder.registerCustomEditor(Integer.class,new CustomNumberEditor(Integer.class,true));

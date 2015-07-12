@@ -2,8 +2,8 @@ package cn.jxufe.core.security.service;
 
 import java.util.List;
 
-import cn.jxufe.web.domain.Authority;
-import cn.jxufe.web.domain.Resource;
+import cn.jxufe.core.web.domain.Authority;
+import cn.jxufe.core.web.domain.Resource;
 
 public interface SecurityService {
 

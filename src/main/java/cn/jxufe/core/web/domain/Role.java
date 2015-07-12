@@ -1,14 +1,12 @@
-package cn.jxufe.web.domain;
+package cn.jxufe.core.web.domain;
 
 import java.util.Date;
 
-public class Resource {
+public class Role {
 
 	private Integer id;
 	
 	private String name;
-	
-	private String path;
 	
 	private String cnname;
 	
@@ -16,8 +14,12 @@ public class Resource {
 	
 	private Date updateDate;
 	
+	private Integer isUse;
+	
+	private Integer parentId;
+	
 	private Integer orderIndex;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -32,14 +34,6 @@ public class Resource {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
 	}
 
 	public String getCnname() {
@@ -64,6 +58,22 @@ public class Resource {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public Integer getIsUse() {
+		return isUse;
+	}
+
+	public void setIsUse(Integer isUse) {
+		this.isUse = isUse;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getOrderIndex() {

@@ -75,24 +75,6 @@ default-lazy-init="true">
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
-	<!-- spring 自带上传类 -->
-   	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="5000000"/>
-		<property name="defaultEncoding" value="UTF-8"/>
-		<property name="uploadTempDir" value="upload/temp/"/>
-		<property name="resolveLazily" value="true"/> 
-	</bean>-->
-
-	<!-- 继承后自己写的上传类 -->
-	<bean id="multipartResolver" class="cn.jxufe.core.upload.CustomMultipartResolver">   
-	 	<property name="maxUploadSize" value="5000000"/>
-		<property name="defaultEncoding" value="UTF-8"/>
-		<property name="uploadTempDir" value="upload/temp/"/>
-		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常  -->
-		<property name="resolveLazily" value="true"/> 
-	 </bean>
-	
-	
     <!-- 当配置了<mvc:annotation-driven/>后，会自动加载org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping和org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter，所以如果显示的配置则需去掉配置<mvc:annotation-driven/> -->
 	<!--<mvc:annotation-driven/>-->
 </beans>

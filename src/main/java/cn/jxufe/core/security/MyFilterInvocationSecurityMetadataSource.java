@@ -19,7 +19,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.util.AntPathMatcher;
 
 import cn.jxufe.core.dao.BaseDao;
-import cn.jxufe.web.domain.Resource;
+import cn.jxufe.core.web.domain.Resource;
 
 /**
  * 

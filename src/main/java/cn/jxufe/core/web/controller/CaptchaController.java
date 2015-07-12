@@ -1,4 +1,4 @@
-package cn.jxufe.web.controller;
+package cn.jxufe.core.web.controller;
 
 import java.awt.image.BufferedImage;  
 import javax.imageio.ImageIO;  

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.jxufe.core.dao.BaseDao;
-import cn.jxufe.web.domain.Authority;
-import cn.jxufe.web.domain.Resource;
+import cn.jxufe.core.web.domain.Authority;
+import cn.jxufe.core.web.domain.Resource;
 
 
 @Service

@@ -1,4 +1,4 @@
-package cn.jxufe.web.controller;
+package cn.jxufe.core.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +16,7 @@ public class IndexController {
 	
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request){
-		return "home/index";
+		return "redirect:/security/index.htm";
 	}
 	
 }

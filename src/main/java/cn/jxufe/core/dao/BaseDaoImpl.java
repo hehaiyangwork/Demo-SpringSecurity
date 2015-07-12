@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import cn.jxufe.web.domain.Page;
+import cn.jxufe.core.web.domain.Page;
 
 
 /**

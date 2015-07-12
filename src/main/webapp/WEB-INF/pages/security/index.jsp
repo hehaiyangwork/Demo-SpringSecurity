@@ -40,8 +40,8 @@
 <script type="text/javascript">
 $(function(){
 	DWZ.init("${base}/styles/dwz/dwz.frag.xml", {
-		loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
-//		loginUrl:"login.html",	// 跳到登录页面
+		loginUrl:"login_dialog.html", // 跳到登录页面
+		loginTitle:"登录",	// 弹出登录对话框
 		statusCode:{ok:200, error:300, timeout:301}, //【可选】
 		pageInfo:{pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
 		keys: {statusCode:"statusCode", message:"message"}, //【可选】
@@ -49,7 +49,7 @@ $(function(){
 		debug:false,	// 调试模式 【true|false】
 		callback:function(){
 			initEnv();
-			$("#themeList").theme({themeBase:"themes"}); // themeBase 相对于index页面的主题base路径
+			$("#themeList").theme({themeBase:"${base}/styles/dwz/themes"}); // themeBase 相对于index页面的主题base路径
 		}
 	});
 });
@@ -63,7 +63,6 @@ $(function(){
 			<div class="headerNav">
 				<a class="logo" href="http://j-ui.com">标志</a>
 				<ul class="nav">
-					<li><a href="https://me.alipay.com/dwzteam" target="_blank">捐赠</a></li>
 					<li><a href="login.html">退出</a></li>
 				</ul>
 				<ul class="themeList" id="themeList">

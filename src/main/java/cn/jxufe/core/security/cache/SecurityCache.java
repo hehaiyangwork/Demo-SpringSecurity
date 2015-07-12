@@ -12,8 +12,8 @@ import net.sf.ehcache.Element;
 
 import org.springframework.dao.DataRetrievalFailureException;
 
-import cn.jxufe.web.domain.Authority;
-import cn.jxufe.web.domain.Resource;
+import cn.jxufe.core.web.domain.Authority;
+import cn.jxufe.core.web.domain.Resource;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package cn.jxufe.web.domain;
+package cn.jxufe.core.web.domain;
 
 import java.util.Date;
 
