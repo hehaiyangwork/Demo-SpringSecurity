@@ -15,8 +15,9 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-public class UserDetail implements UserDetails, CredentialsContainer {
+public class UserDetailsImpl extends User implements UserDetails, CredentialsContainer {
 
+	
     //~ Instance fields ================================================================================================
 	
 	private static final long serialVersionUID = 1L;
@@ -39,16 +40,15 @@ public class UserDetail implements UserDetails, CredentialsContainer {
 	private Date insertDate;
 	private Date updateDate;
 	private Date lastLoginDate;
-	private String operatorIp;
 	
     //~ Constructors ===================================================================================================
     
-    public UserDetail(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this(username, password, true, true, true, true, authorities);
     }
 
    
-    public UserDetail(String username, String password, boolean enabled, boolean accountNonExpired,
+    public UserDetailsImpl(String username, String password, boolean enabled, boolean accountNonExpired,
             boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
         if (((username == null) || "".equals(username)) || (password == null)) {
@@ -138,14 +138,6 @@ public class UserDetail implements UserDetails, CredentialsContainer {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public String getOperatorIp() {
-		return operatorIp;
-	}
-
-	public void setOperatorIp(String operatorIp) {
-		this.operatorIp = operatorIp;
-	}
-
     //~ Methods ========================================================================================================
 
     public Collection<GrantedAuthority> getAuthorities() {
@@ -214,8 +206,8 @@ public class UserDetail implements UserDetails, CredentialsContainer {
 
     @Override
     public boolean equals(Object rhs) {
-        if (rhs instanceof UserDetail) {
-            return username.equals(((UserDetail) rhs).username);
+        if (rhs instanceof UserDetailsImpl) {
+            return username.equals(((UserDetailsImpl) rhs).username);
         }
         return false;
     }

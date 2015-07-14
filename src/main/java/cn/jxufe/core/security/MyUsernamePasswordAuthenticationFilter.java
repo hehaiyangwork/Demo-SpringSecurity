@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import cn.jxufe.core.dao.BaseDao;
-import cn.jxufe.core.web.domain.User;
+import cn.jxufe.core.security.domain.User;
 
 public class MyUsernamePasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private static final String USERNAME = "username";

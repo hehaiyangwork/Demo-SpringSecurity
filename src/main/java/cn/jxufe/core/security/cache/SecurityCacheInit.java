@@ -5,9 +5,9 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.jxufe.core.security.domain.Authority;
+import cn.jxufe.core.security.domain.Resource;
 import cn.jxufe.core.security.service.SecurityService;
-import cn.jxufe.core.web.domain.Authority;
-import cn.jxufe.core.web.domain.Resource;
 
 /**
  * 

@@ -19,9 +19,10 @@ import org.springframework.stereotype.Component;
 
 
 
+
 import cn.jxufe.core.dao.BaseDao;
-import cn.jxufe.core.security.domain.UserDetail;
-import cn.jxufe.core.web.domain.Resource;
+import cn.jxufe.core.security.domain.Resource;
+import cn.jxufe.core.security.domain.UserDetailsImpl;
 
 @Component("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
@@ -70,7 +71,7 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         logger.debug("------------"+authSet.toString()+"------------");
         // spring-security提供的类
-        UserDetail userdetail = new UserDetail(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authSet);
+        UserDetailsImpl userdetail = new UserDetailsImpl(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authSet);
         userdetail.setCnname("何海洋");
         return userdetail;
 

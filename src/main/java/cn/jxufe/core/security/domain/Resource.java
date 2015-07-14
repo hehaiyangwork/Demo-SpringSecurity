@@ -1,12 +1,19 @@
-package cn.jxufe.core.web.domain;
+package cn.jxufe.core.security.domain;
 
 import java.util.Date;
 
-public class Role {
+public class Resource implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8678589250690848679L;
 
 	private Integer id;
 	
 	private String name;
+	
+	private String path;
 	
 	private String cnname;
 	
@@ -14,12 +21,8 @@ public class Role {
 	
 	private Date updateDate;
 	
-	private Integer isUse;
-	
-	private Integer parentId;
-	
 	private Integer orderIndex;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -34,6 +37,14 @@ public class Role {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public String getCnname() {
@@ -58,22 +69,6 @@ public class Role {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public Integer getIsUse() {
-		return isUse;
-	}
-
-	public void setIsUse(Integer isUse) {
-		this.isUse = isUse;
-	}
-
-	public Integer getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
 	}
 
 	public Integer getOrderIndex() {

@@ -1,8 +1,13 @@
-package cn.jxufe.core.web.domain;
+package cn.jxufe.core.security.domain;
 
 import java.util.Date;
 
-public class User {
+public class User implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7092692813253024374L;
 
 	private Integer id;
 	
@@ -28,8 +33,6 @@ public class User {
 	
 	private Date lastLoginDate;
 	
-	private String operatorIp;
-
 	public Integer getId() {
 		return id;
 	}
@@ -126,12 +129,4 @@ public class User {
 		this.lastLoginDate = lastLoginDate;
 	}
 
-	public String getOperatorIp() {
-		return operatorIp;
-	}
-
-	public void setOperatorIp(String operatorIp) {
-		this.operatorIp = operatorIp;
-	}
-	
 }

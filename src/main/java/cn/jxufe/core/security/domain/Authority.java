@@ -1,8 +1,13 @@
-package cn.jxufe.core.web.domain;
+package cn.jxufe.core.security.domain;
 
 import java.util.Date;
 
-public class Authority {
+public class Authority implements java.io.Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4767135184979801106L;
 
 	private Integer id;
 	
