@@ -1,0 +1,32 @@
+<div class="modal-body">
+	<p>姓名</p>
+	<input type="text" />
+	<p>密码</p>
+	<input type="text" />
+</div>
+<div class="modal-footer">
+	<a role="button" class="btn btn-primary" id="addBtn">确认</a>
+	<a role="button" class="btn btn-default" id="closeBtn">取消</a>
+</div>
+<script type="text/javascript">
+void function($){
+	$("#addBtn").click(function(){
+		 message_box.show('你点击了确定按钮！','success');
+		 refreshThisTab();
+		gDialog.fClose();
+	});
+	$("#closeBtn").click(function(){
+		gDialog.fClose();
+	});
+	
+	function refreshThisTab(){
+		var tabIndex=tabs.tabs('option', 'active');
+	 	var x=$("#mainTab li[id^='tab-']").toArray();
+	 	var tabId=x[tabIndex].id;
+		var panelId=$("#"+tabId).attr( "aria-controls" );
+		$("#"+panelId).html("");
+		tabs.tabs( "load", $("#"+tabId).index());
+	}
+	
+}(jQuery);
+</script>

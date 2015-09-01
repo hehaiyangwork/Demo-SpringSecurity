@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+            http://www.springframework.org/schema/security  
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<!-- 配置不过滤的资源（静态资源及登录相关） -->
+	<security:http pattern="/**/*.css" security="none" />
+	<security:http pattern="/**/*.js" security="none" />
+	<security:http pattern="/**/*.jpg" security="none" />
+	<security:http pattern="/**/*.jpeg" security="none" />
+	<security:http pattern="/**/*.gif" security="none" />
+	<security:http pattern="/**/*.png" security="none" />
+	<security:http pattern="/**/*.ico" security="none" />
+	<security:http pattern="/**/*.ttf" security="none" />
+	<security:http pattern="/**/*.woff" security="none" />
+	<security:http pattern="/**/*.woff2" security="none" />
+	<!-- 不过滤验证码 -->
+	<security:http pattern="/captcha-image.htm" security="none" />
+	<!-- 不过滤登录页面 -->
+	<security:http pattern="/login.htm" security="none" />
+	<security:http pattern="/login.jsp" security="none" />
+	<!-- 不过滤首页 -->
+	
+	<security:http pattern="/index.htm" security="none" />
+	<security:http pattern="/index.jsp" security="none" />
+	<security:http pattern="/start.htm" security="none" />
+	<security:http pattern="/start.jsp" security="none" />
+	<security:http pattern="/404.jsp" security="none" />
+	<security:http pattern="/info.jsp" security="none" />
+
+	<!-- 配置SpringSecurity的http安全服务 -->
+	<!-- 配置了auto-config="true"loginFilter报错，如果你没有自定义的登录页面，它就会跳转到security默认的登录页面中。 -->
+	<security:http access-denied-page="/accessDenied.jsp" entry-point-ref="loginUrlAuthenticationEntryPoint">
+
+	<!-- 配置登出信息，指定退出系统后，跳转页面 注销过滤器 -->
+	<security:logout logout-url="/logout.do" logout-success-url="/login.htm" invalidate-session="true" />
+
+	<!-- 认证和授权 -->
+	<!-- custom-filter中before是在这个filter之前，after是之后，position是替换 -->
+	<security:custom-filter ref="securityFilter"
+		before="FILTER_SECURITY_INTERCEPTOR" />
+	<!-- 普通登录过滤器 -->
+	<security:custom-filter ref="loginFilter"
+		before="FORM_LOGIN_FILTER" />
+	<!-- ajax登录过滤器 -->
+	<security:custom-filter ref="ajaxLoginFilter" 
+	    position="FORM_LOGIN_FILTER" />
+		<security:custom-filter ref="concurrencyFilter" position="CONCURRENT_SESSION_FILTER"/>  
+		<!-- remember me
+        <security:remember-me key="bookingtest" /> -->
+		<!-- session-fixation-protection=none的时候，固化攻击失效 -->
+		<security:session-management  session-authentication-strategy-ref="concurrentSessionControlStrategy" />  
+		<!-- 只cache get,避免ajax post 被cache 
+		<security:request-cache ref="httpSessionRequestCache" />-->
+	</security:http>
+
+	<!-- 
+	<bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache">
+	    <property name="justUseSavedRequestOnGet" value="true" />
+	</bean>
+	 -->
+	 
+	<!-- 只能同时一个用户登陆配置开始 -->
+	<bean id="concurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">  
+   	 	<constructor-arg name="sessionRegistry" ref="sessionRegistry" />  
+   	 	<constructor-arg name="expiredUrl" value="/sessionOut.jsp" />  
+	</bean>  
+	<bean id="concurrentSessionControlStrategy" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">  
+    	<constructor-arg name="sessionRegistry" ref="sessionRegistry" />  
+    	<property name="maximumSessions" value="1"></property>  
+    </bean>  
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />  
+	<!-- 只能同时一个用户登陆配置完毕 -->  
+	
+	<!-- 认证管理器，配置SpringSecutiry的权限信息 -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!-- 使用数据库中的用户名和密码 -->
+			<security:jdbc-user-service data-source-ref="dataSource" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 验证配置 ， 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+	<security:authentication-manager alias="authenticationManager">
+		<!-- 使用自己数据库中的用户和角色表,获取用户拥有的权限 -->
+		<security:authentication-provider user-service-ref="userDetailsService">
+			<!--<security:authentication-provider ref="loginAuthenticationProvider">
+			<security:password-encoder ref="passwordEncode" />-->
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<!-- 验证普通用户 -->  
+	<bean id="loginFilter" class="cn.jxufe.core.security.MyUsernamePasswordAuthenticationFilter">
+	    <property name="authenticationManager" ref="authenticationManager"/>
+	    <property name="authenticationFailureHandler" ref="failureHandler"/>
+	    <property name="authenticationSuccessHandler" ref="successHandler"/>
+	    <property name="usernameParameter" value="username"></property>
+		<property name="passwordParameter" value="password"></property>
+	    <property name="filterProcessesUrl" value="/loginCheck.do"/>
+	    <property name="baseDao" ref="baseDao"></property>
+		<!-- session控制，同一账号登录后踢出另一用户 -->
+		<property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy" /> 
+	</bean>
+	 
+	<!-- 对应两个handler，专门处理普通登录的成功和失败，返回页面-->
+	<bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+	    <property name="defaultFailureUrl" value="/login.htm?error=1" />
+	</bean>
+	<bean id="successHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+	    <property name="alwaysUseDefaultTargetUrl" value="false"/>
+	    <property name="defaultTargetUrl" value="/index.jsp"/>
+	</bean>
+
+    <!-- 验证ajax请求--> 
+	<bean id="ajaxLoginFilter" class="cn.jxufe.core.security.MyUsernamePasswordAuthenticationFilter">
+	    <property name="authenticationManager" ref="authenticationManager"/>
+	    <property name="authenticationFailureHandler" ref="ajaxFailureHandler"/>
+	    <property name="authenticationSuccessHandler" ref="ajaxSuccessHandler"/>
+	    <property name="filterProcessesUrl" value="/ajaxLoginCheck.do"/>
+	    <property name="usernameParameter" value="username"></property>
+		<property name="passwordParameter" value="password"></property>
+	    <property name="baseDao" ref="baseDao"></property>
+		<!-- session控制，同一账号登录后踢出另一用户 -->
+		<property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy" /> 	    
+	</bean>
+
+	<!-- 对应两个handler，专门处理ajax登录的成功和失败，都返回json消息 -->
+	<bean id="ajaxFailureHandler" class="cn.jxufe.core.security.handler.AjaxAuthenticationFailureHandler">
+	</bean>
+	<bean id="ajaxSuccessHandler" class="cn.jxufe.core.security.handler.AjaxAuthenticationSuccessHandler">
+	</bean>
+	
+    <!-- 配置密码加密类 -->  
+	<bean id="passwordEncode" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />  
+	<bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">  
+	    <property name="userPropertyToUse" value="username"/>  
+	</bean> 
+	
+	<!-- 认证过滤器 -->
+    <bean id="securityFilter" class="cn.jxufe.core.security.MySecurityFilter">
+    	<!-- 用户拥有的权限 -->
+    	<property name="authenticationManager" ref="authenticationManager" />
+    	<!-- 用户是否拥有所请求资源的权限 -->
+    	<property name="accessDecisionManager" ref="accessDecisionManager" />
+    	<!-- 资源与权限对应关系 -->
+    	<property name="securityMetadataSource" ref="securityMetadataSource" />
+    </bean>
+	
+    <bean id="userDetailsService" class="cn.jxufe.core.security.MyUserDetailsService" />
+	<bean id="accessDecisionManager" class="cn.jxufe.core.security.MyAccessDecisionManager"/>
+	<bean id="securityMetadataSource" class="cn.jxufe.core.security.MyFilterInvocationSecurityMetadataSource">
+		<constructor-arg name="baseDao" ref="baseDao" />    
+	</bean>
+
+	<bean id="securityService" class="cn.jxufe.core.security.service.SecurityServiceImpl">
+	</bean>
+	
+	<bean id="baseDao" class="cn.jxufe.core.dao.BaseDaoImpl" />
+	
+	<!-- 定义上下文返回的消息的国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:org/springframework/seurity/messages_zh_CN" />
+	</bean>
+
+	<!-- 未登录的切入点 -->  
+    <bean id="loginUrlAuthenticationEntryPoint" class="cn.jxufe.core.security.MyLoginUrlAuthenticationEntryPoint">  
+        <property name="loginFormUrl" value="/info.jsp"/>  
+	</bean>
+	
+	<!-- 自定义权限不足处理程序,主要是加入处理AJAX的处理问题   -->  
+	<bean id="accessDeniedHandler" class="cn.jxufe.core.security.provider.DefaultAccessDeniedHandler">  
+	    <property name="errorPage" value="/404.jsp"></property>  
+	</bean>
+    
+	<!-- SpringSecurity方法层安全基于SpringAOP技术，它有自己的@Secured注解，SpringSecurity支持四种方法层的安全 
+	<security:global-method-security  jsr250-annotations="enabled" secured-annotations="enabled" /> -->
+	
+</beans>  
