@@ -111,7 +111,8 @@
 	    <property name="defaultFailureUrl" value="/login.htm?error=1" />
 	</bean>
 	<bean id="successHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-	    <property name="alwaysUseDefaultTargetUrl" value="false"/>
+	   <!-- 下行设置为true,登录都都跳转到首页，若要跳转到上次访问页设置为false -->
+	    <property name="alwaysUseDefaultTargetUrl" value="true"/>
 	    <property name="defaultTargetUrl" value="/index.jsp"/>
 	</bean>
 
